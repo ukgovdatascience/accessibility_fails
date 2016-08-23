@@ -14,13 +14,16 @@ What they want to know is:
 The three scoring criteria are:
 * error found
 * error found + warning reported
-* /error found + warning reported + manual inspection
+* error found + warning reported + manual inspection
 
 ## Outline of method
 
-* Hash the various accessibility fails to make them easier to work with
+* ~~Hash the various accessibility fails to make them easier to work with~~
 * Create three dataframes and binarise for the three success criteria
 * Compute rowsums for all the possible combinations of accessibility tools
 * Visualise this data somehow
 
+## Issues
 
+* Test 16 and 81: 'Text language changed without required change in direction' were replicated in `accessibility_fail_data.csv`.
+The test at line 81 was appended with a `1` to solve this issue.
