@@ -1,6 +1,5 @@
 ---
 title: "Accessibility Fails"
-author: "Matthew Upson"
 date: "23 August 2016"
 output: html_document
 ---
@@ -32,6 +31,22 @@ library(knitr)
 source('tools.R')
 ```
 
+# How to read the tables?
+
+* Tables show the maximum number of accessibility fails found (**score**) for a given number of automated tools (**n_tools**).
+* Several combinations of the same number of tools may yield the same score.  
+* Since the automated tools have three outputs of interest: error found, warning reported, and flagging for manual inspection, three tables are presented with combinations of these:
+    * error found  
+    * error found + warning reported  
+    * error found + warning reported + allows manual inspection.  
+
+# How to read the plots
+
+The plots demonstrate how increasing the number of tools used will not necessarily increase the number of fails found.
+Typically, using seven tools will not increase the number of fails found.
+
+# Error found
+
 ```{r}
 
 fails_data <- 'accessibility_fail_data.csv' %>%
@@ -44,12 +59,6 @@ fails_data <- 'accessibility_fail_data.csv' %>%
 tool_names = names(fails_data)[-1]
 names(tool_names) <- 1:length(tool_names)
 
-argh <- function(x) {
-  
-  return(tool_names[x])
-  
-}
-
 outcomes <- c('error_found','warning_reported','allows_manual_inspection')
 
 ```
@@ -58,7 +67,7 @@ outcomes <- c('error_found','warning_reported','allows_manual_inspection')
 
 output <- 1:10 %>%
   purrr::map_df(
-    ~ foobar(x = .x, outcomes[1]), 
+    ~ foobar(x = .x, paste0('^',outcomes[1],'$')), 
     .id = "n_tools"
   ) %>%
   set_colnames(
@@ -105,12 +114,13 @@ output1 %>%
   ggtitle(paste(outcomes[1], collapse = ' + '))
 ```
 
+# Error found + warning reported
 
 ```{r}
 
 output <- 1:10 %>%
   purrr::map_df(
-    ~ foobar(x = .x, outcomes[1:2]), 
+    ~ foobar(x = .x, paste0('^',outcomes[1:2],'$')), 
     .id = "n_tools"
   ) %>%
   set_colnames(
@@ -157,11 +167,13 @@ output1 %>%
   ggtitle(paste(outcomes[1:2], collapse = ' + '))
 ```
 
+# Error found + warning reported + allows manual inspection
+
 ```{r}
 
 output <- 1:10 %>%
   purrr::map_df(
-    ~ foobar(x = .x, outcomes[1:3]), 
+    ~ foobar(x = .x, paste0('^',outcomes[1:3],'$')), 
     .id = "n_tools"
   ) %>%
   set_colnames(

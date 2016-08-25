@@ -26,4 +26,4 @@ The three scoring criteria are:
 ## Issues
 
 * Test 16 and 81: 'Text language changed without required change in direction' were replicated in `accessibility_fail_data.csv`.
-The test at line 81 was appended with a `1` to solve this issue.
+The test at line 81 was appended with a 1 in teh csv to solve this issue.

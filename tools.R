@@ -135,3 +135,10 @@ foobar <- function(x, terms) {
   return(scores)
 }
 
+# Function to rename integers back to characters
+
+argh <- function(x) {
+  
+  return(tool_names[x - 1])
+  
+}
